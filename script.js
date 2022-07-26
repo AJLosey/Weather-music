@@ -285,35 +285,34 @@ function musicGet(weatherResponse) {
 
     if (skyCondition >= 200 && skyCondition <= 531) {
         playlists = '';
-        getPlaylistStormy();
-
+        getPlaylist("stormy");
     } else if (skyCondition >= 300 && skyCondition <= 321) {
         playlists = '';
-        getPlaylistStormy();
+        getPlaylist("stormy");
     } else if (skyCondition >= 500 && skyCondition <= 531) {
         playlists = '';
-        getPlaylistStormy();
+        getPlaylist("stormy");
     } else if (skyCondition >= 600 && skyCondition <= 622) {
         playlists = '';
-        getPlaylistSnow();
+        getPlaylist("snowy");
     } else if (skyCondition == 741) {
         playlists = '';
-        getPlaylistFog();
+        getPlaylist("foggy");
     } else if (skyCondition == 781) {
         playlists = '';
-        getPlaylistTornado();
+        getPlaylist("tornado");
     } else if (skyCondition == 751) {
         playlists = '';
-        getPlaylistSandStorm();
+        getPlaylist("desert");
     } else if (temp <= 283) {
         playlists = '';
-        getPlaylistCold();
+        getPlaylist("cold");
     } else if (temp >= 300) {
         playlists = '';
-        getPlaylistHot();
+        getPlaylist("hot");
     } else {
         playlists = '';
-        getPlaylistSunny();
+        getPlaylist("sunny");
     }
 
 }
@@ -321,6 +320,7 @@ function musicGet(weatherResponse) {
 // Spotify API ------------------------------------------------------------------------------
 var clientId = '234754f0bf294bf5b88cd420b4bb8a24';
 var clientSecret = '24b6ec5fed5144008b8dfe088c8529c9';
+//Storing client ID and Secret is bad here, but was fine for the scope of the student project
 var token;
 var playlists = [];
 var playlistURL = [];
@@ -345,9 +345,8 @@ function getToken() {
         })
 }
 
-//search playlists for clear skies
-function getPlaylistSunny() {
-    fetch(`https://api.spotify.com/v1/search?q=sunny&type=playlist&limit=5&offset=5`, {
+function getPlaylist(weather) {
+    fetch(`https://api.spotify.com/v1/search?q=${weather}&type=playlist&limit=5&offset=5`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -365,142 +364,3 @@ function getPlaylistSunny() {
         })
 }
 
-//search playlists for stormy skies
-function getPlaylistStormy() {
-    fetch(`https://api.spotify.com/v1/search?q=stormy%20days&type=playlist&limit=5&offset=5`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            playlists = data.playlists.items;
-            console.log(playlists);
-            displayList();
-        })
-}
-
-//search playlists for snow
-function getPlaylistSnow() {
-    fetch(`https://api.spotify.com/v1/search?q=snowy&type=playlist&limit=5&offset=5`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            playlists = data.playlists.items;
-            console.log(playlists);
-            displayList();
-        })
-}
-
-//search playlists for fog
-function getPlaylistFog() {
-    fetch(`https://api.spotify.com/v1/search?q=foggy&type=playlist&limit=5&offset=5`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            playlists = data.playlists.items;
-            console.log(playlists);
-            displayList();
-        })
-}
-
-//search playlists for tornado
-function getPlaylistTornado() {
-    fetch(`https://api.spotify.com/v1/search?q=tornado&type=playlist&limit=5&offset=5`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            playlists = data.playlists.items;
-            console.log(playlists);
-            displayList();
-        })
-}
-
-//search playlists for sandstorm
-function getPlaylistSandStorm() {
-    fetch(`https://api.spotify.com/v1/search?q=desert&type=playlist&limit=5&offset=5`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            playlists = data.playlists.items;
-            console.log(playlists);
-            displayList();
-        })
-}
-
-//search playlists for cold days
-function getPlaylistCold() {
-    fetch(`https://api.spotify.com/v1/search?q=cold%20days&type=playlist&limit=5&offset=5`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            playlists = data.playlists.items;
-            console.log(playlists);
-            displayList();
-        })
-}
-
-//search playlists for hot days
-function getPlaylistHot() {
-    fetch(`https://api.spotify.com/v1/search?q=summer&type=playlist&limit=5&offset=5`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            playlists = data.playlists.items;
-            console.log(playlists);
-            displayList();
-        })
-}
